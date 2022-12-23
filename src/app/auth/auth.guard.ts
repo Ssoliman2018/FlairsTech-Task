@@ -20,67 +20,35 @@ import { AuthService } from "./auth.service";
 })
 export class AuthGuard
   implements
-    CanActivate,
-    CanActivateChild,
-    CanDeactivate<unknown>,
-    CanLoad,
-    CanMatch
+    CanActivate
 {
   constructor(public authService: AuthService, public router: Router) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
     | boolean
-    | UrlTree {
-    // if (this.authService.isLoggedIn !== true) {
-    //   window.alert("Access Denied, Login is Required to Access This Page!");
-    //   this.router.navigate(["login"]);
-    // }
-    return true;
-  }
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
+    | UrlTree
     | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return true;
-  }
-  canDeactivate(
-    component: unknown,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return true;
-  }
-  canMatch(
-    route: Route,
-    segments: UrlSegment[]
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return true;
-  }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return true;
+    | Promise<boolean | UrlTree> {
+    
+    this.authService.getAccessToken();
+    var userProfile = this.authService.userProfile.getValue();
+      console.log('userProfile', route.data)
+    if ((userProfile ?? 0) > 0) {
+      if (route.data['requiredAuth'] == false) {
+        this.router.navigate(['/']);
+        return false;
+      }
+ 
+      return true;
+    } else {
+      if (route.data['requiredAuth'] == true) {
+        this.router.navigate(['auth/login']);
+        return false;
+      }
+      return true;
+    }
   }
 }
