@@ -10,6 +10,9 @@ import { jwtOptionFactor } from './shared/auth/jwtOptionFactor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Page404Component } from './page404/page404.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
  
 
  
@@ -23,6 +26,9 @@ import { Page404Component } from './page404/page404.component';
     AppRoutingModule,
     BrowserAnimationsModule,
    HttpClientModule,
+   MatCardModule,
+   MatIconModule,
+   MatButtonModule,
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide:JWT_OPTIONS,
