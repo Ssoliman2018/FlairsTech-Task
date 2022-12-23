@@ -33,7 +33,7 @@ export class AuthService {
       .post('https://dummyjson.com/auth/login', payload)
       .pipe(
         map((data) => {
-          console.log('test login data');
+          console.log('test login data', data);
           var token = data as TokenModel;
  
           localStorage.setItem('tokens', JSON.stringify(token));
@@ -53,9 +53,22 @@ export class AuthService {
     );
   }
 
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== 'null' ? true : false;
+  getAccessToken():string{
+    var localStorageToken = localStorage.getItem('tokens');
+    if(localStorageToken){
+      var token = JSON.parse(localStorageToken) as TokenModel;
+      var isTokenExpired = this.jwtService.isTokenExpired(token.access_token);
+      if(isTokenExpired){
+        this.userProfile.next(null);
+        return "";
+      }
+      var userInfo = this.jwtService.decodeToken(
+        token.access_token
+      ) as UserProfile;
+      this.userProfile.next(userInfo);
+      return token.access_token;
+    }
+    return "";
   }
 
 
