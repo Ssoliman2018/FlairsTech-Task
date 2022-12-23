@@ -7,22 +7,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './auth/auth.service';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { jwtOptionFactor } from './shared/auth/jwtOptionFactor';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { Page404Component } from './page404/page404.component';
  
 
  
 @NgModule({
   declarations: [
     AppComponent,
+    Page404Component,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+   HttpClientModule,
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide:JWT_OPTIONS,
         useFactory: jwtOptionFactor,
-        deps:[AuthService]
+        deps:[AuthService],
       } 
     })
   ],
