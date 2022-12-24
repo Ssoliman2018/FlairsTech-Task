@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
 import { BehaviorSubject, catchError, map, of } from 'rxjs';
 import { UserProfile } from '../shared/auth/user-profile';
 import { JwtHelperService } from '@auth0/angular-jwt';
