@@ -12,13 +12,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductModule } from '../product/product.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { HomeModule } from '../home/home.module';
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    ListComponent,
-    ProductListComponent,
-    UserListComponent
   ],
   imports: [
     CommonModule,
@@ -31,11 +28,12 @@ import { MatIconModule } from '@angular/material/icon';
     ProductModule,
     ReactiveFormsModule,
     MatButtonToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonToggleModule,
+    HomeModule,
+    ProductModule
   ],
   exports: [
-    ListComponent,
-    MatTableModule
   ]
 })
 export class SharedModule { }

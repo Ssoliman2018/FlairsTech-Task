@@ -44,7 +44,6 @@ import { SharedModule } from './shared/shared.module';
    MatMenuModule,
    MatDividerModule,
    SharedModule,
-   
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide:JWT_OPTIONS,

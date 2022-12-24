@@ -6,15 +6,21 @@ import { HomeComponent } from './home.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ProductListComponent } from './product-list/product-list.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
+    ProductListComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+  ],
+  exports: [
+    ProductListComponent
   ]
 })
 export class HomeModule { }

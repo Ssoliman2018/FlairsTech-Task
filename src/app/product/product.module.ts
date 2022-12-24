@@ -10,6 +10,8 @@ import { FormComponent } from './form/form.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -18,15 +20,18 @@ import { MatIconModule } from '@angular/material/icon';
   
       ProductComponent,
        DetailsComponent,
-       FormComponent
+       FormComponent,
+       ListComponent
   ],
   imports: [
     CommonModule,
     ProductRoutingModule,
-    HomeModule,
     MatButtonToggleModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule,
+    MatTableModule,
+    MatPaginatorModule
 
     
   ]

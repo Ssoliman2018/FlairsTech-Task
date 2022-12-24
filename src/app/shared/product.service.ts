@@ -24,6 +24,15 @@ export class ProductService {
         catchError(this.handleError));
   }
 
+  getProduct(id: number) {
+    return this.httpClient
+      .get<Product>(this.apiURL + "products/" + id)
+      .pipe(
+        retry(1), 
+        catchError(this.handleError));
+  }
+
+
   // Error handling
   handleError(error: any) {
     let errorMessage = "";

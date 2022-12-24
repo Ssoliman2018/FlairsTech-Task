@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/shared/product.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.sass']
 })
-export class ListComponent implements OnInit, AfterViewInit {
+export class ListComponent implements OnInit {
   productList: Product[] = [];
   displayedColumns: string[] = ['id', 'image', 'title', 'price', 'actions'];
   dataSource!: MatTableDataSource<Product>;
@@ -20,10 +20,6 @@ export class ListComponent implements OnInit, AfterViewInit {
 
   constructor(private productService: ProductService) { }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
