@@ -1,7 +1,38 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListComponent } from './list/list.component';
+import { DetailsComponent } from './details/details.component';
+import { FormComponent } from './form/form.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
+  {
+    path: '',
+    children: [
+
+      {
+        path: 'list',
+        component: ListComponent,
+
+      },
+      {
+        path: ':id',
+        component: DetailsComponent,
+
+      },
+      {
+        path: "form",
+        component: FormComponent
+
+      } ,
+      {
+        path: "edit/:id",
+        component: FormComponent
+
+      }
+    ]
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
