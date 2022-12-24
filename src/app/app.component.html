@@ -1,2 +1,9 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<mat-drawer-container>
+    <mat-drawer mode="side" [opened]="sideBarOpen" *ngIf="isLoggedIn$ | async">
+        <app-side-nav ></app-side-nav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <app-header (toggleSidebarForMe)="sideBarToggler()" *ngIf="isLoggedIn$ | async"></app-header>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
