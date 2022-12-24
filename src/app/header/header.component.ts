@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +9,16 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn$: Observable<boolean>;
 
-  constructor(private authService: AuthService) { 
-    console.log('start header')
+  @Output() toggleSidebarForMe: EventEmitter<any> = new EventEmitter();
 
-    this.isLoggedIn$ = this.authService.isLoggedIn;
-    console.log('user profile', this.isLoggedIn$)
-  }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  toggleSidebar() {
+    this.toggleSidebarForMe.emit();
   }
 
 }
