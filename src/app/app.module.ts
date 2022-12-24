@@ -22,8 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthInterceptor } from './shared/auth/authconfig.interceptor';
-
- 
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +43,8 @@ import { AuthInterceptor } from './shared/auth/authconfig.interceptor';
    MatListModule,
    MatMenuModule,
    MatDividerModule,
+   SharedModule,
+   
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide:JWT_OPTIONS,
