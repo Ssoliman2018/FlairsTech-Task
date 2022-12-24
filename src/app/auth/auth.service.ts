@@ -48,7 +48,7 @@ export class AuthService {
           ) as UserProfile;
  
           this.userProfile.next(userInfo);
- 
+          this.loggedIn.next(true);
           return true;
         }),
         catchError((error) => {
