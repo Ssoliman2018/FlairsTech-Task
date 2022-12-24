@@ -19,7 +19,12 @@ export class AuthService {
   userProfile = new BehaviorSubject<UserProfile | null>(null);
   jwtService: JwtHelperService = new JwtHelperService();
  
+  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
+  get isLoggedIn() {
+    return this.loggedIn.asObservable(); // {2}
+  }
+  
   constructor(
     public router: Router,
     public ngZone: NgZone ,

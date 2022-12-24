@@ -13,13 +13,19 @@ import { Page404Component } from './page404/page404.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
- 
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { SideNavModule } from './side-nav/side-nav.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HeaderComponent } from './header/header.component';
+
 
  
 @NgModule({
   declarations: [
     AppComponent,
     Page404Component,
+    SideNavComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +35,8 @@ import { MatButtonModule } from '@angular/material/button';
    MatCardModule,
    MatIconModule,
    MatButtonModule,
+   SideNavModule,
+   MatToolbarModule,
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide:JWT_OPTIONS,
