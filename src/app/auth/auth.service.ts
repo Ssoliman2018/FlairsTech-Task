@@ -17,13 +17,7 @@ export class AuthService {
   baseURL: string = 'https://dummyjson.com/';
   userProfile = new BehaviorSubject<UserProfile | null>(null);
   jwtService: JwtHelperService = new JwtHelperService();
- 
-  // private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
-  // get isLoggedIn() {
-  //   return this.loggedIn.asObservable(); // {2}
-  // }
-  
   constructor(
     public router: Router,
     public ngZone: NgZone ,
@@ -37,17 +31,12 @@ export class AuthService {
       .post('https://dummyjson.com/auth/login', payload)
       .pipe(
         map((data) => {
-          console.log('test login data', data);
           var token = data as TokenModel;
- 
-          localStorage.setItem('tokens', JSON.stringify(token));
- 
+          localStorage.setItem('tokens', JSON.stringify(token.token));
           var userInfo = this.jwtService.decodeToken(
-            token.access_token
+            token.token
           ) as UserProfile;
- 
           this.userProfile.next(userInfo);
-         // this.loggedIn.next(true);
           return true;
         }),
         catchError((error) => {
@@ -61,16 +50,16 @@ export class AuthService {
     var localStorageToken = localStorage.getItem('tokens');
     if(localStorageToken){
       var token = JSON.parse(localStorageToken) as TokenModel;
-      var isTokenExpired = this.jwtService.isTokenExpired(token.access_token);
+      var isTokenExpired = this.jwtService.isTokenExpired(token.token);
       if(isTokenExpired){
         this.userProfile.next(null);
         return "";
       }
       var userInfo = this.jwtService.decodeToken(
-        token.access_token
+        token.token
       ) as UserProfile;
       this.userProfile.next(userInfo);
-      return token.access_token;
+      return token.token;
     }
     return "";
   }
@@ -83,6 +72,13 @@ export class AuthService {
     let authToken = localStorage.getItem('tokens');
    // return this.loggedIn.asObservable(); // {2}
     return authToken !== null ? true : false;
+  }
+
+  doLogout() {
+    let removeToken = localStorage.removeItem('tokens');
+    if (removeToken == null) {
+      this.router.navigate(['/auth/login']);
+    }
   }
 
 
