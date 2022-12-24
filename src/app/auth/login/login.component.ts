@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit {
       password: ['0lelplR', Validators.required],
       username: ['kminchelle', Validators.required]
     })
+
+    if (this.authService.isLoggedIn) {  
+      this.router.navigate(['home']);  
+    }  
+
   }
   ngOnInit(): void {
 
@@ -35,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.authService.userLogin(loginModel).subscribe((result) => {
       if (result) {
         console.log('result', result)
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       }
     })
   }

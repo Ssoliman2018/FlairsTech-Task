@@ -8,7 +8,7 @@ import { AuthService } from './auth/auth.service';
 import { JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { jwtOptionFactor } from './shared/auth/jwtOptionFactor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { Page404Component } from './page404/page404.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +21,7 @@ import { HeaderComponent } from './header/header.component';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
+import { AuthInterceptor } from './shared/auth/authconfig.interceptor';
 
  
 @NgModule({
@@ -28,7 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
     AppComponent,
     Page404Component,
     HeaderComponent,
-    SideNavComponent
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +52,13 @@ import { MatMenuModule } from '@angular/material/menu';
       } 
     })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

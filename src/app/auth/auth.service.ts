@@ -18,11 +18,11 @@ export class AuthService {
   userProfile = new BehaviorSubject<UserProfile | null>(null);
   jwtService: JwtHelperService = new JwtHelperService();
  
-  private loggedIn = new BehaviorSubject<boolean>(false); // {1}
+  // private loggedIn = new BehaviorSubject<boolean>(false); // {1}
 
-  get isLoggedIn() {
-    return this.loggedIn.asObservable(); // {2}
-  }
+  // get isLoggedIn() {
+  //   return this.loggedIn.asObservable(); // {2}
+  // }
   
   constructor(
     public router: Router,
@@ -47,7 +47,7 @@ export class AuthService {
           ) as UserProfile;
  
           this.userProfile.next(userInfo);
-          this.loggedIn.next(true);
+         // this.loggedIn.next(true);
           return true;
         }),
         catchError((error) => {
@@ -73,6 +73,16 @@ export class AuthService {
       return token.access_token;
     }
     return "";
+  }
+
+  getToken() {
+    return localStorage.getItem('tokens');
+  }
+  
+  get isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('tokens');
+   // return this.loggedIn.asObservable(); // {2}
+    return authToken !== null ? true : false;
   }
 
 

@@ -19,25 +19,17 @@ import { AuthService } from "./auth.service";
   providedIn: "root",
 })
 export class AuthGuard implements CanActivate {
-  constructor(public authService: AuthService, public router: Router) {}
-
+  constructor(
+    public authService: AuthService,
+    public router: Router
+  ) { }
   canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isLoggedIn         // {1}
-      .pipe(
-        take(1),                              // {2} 
-        map((isLoggedIn: boolean) => {    
-          console.log('>>>>>>', isLoggedIn)     // {3}
-          if (!isLoggedIn){
-
-            this.router.navigate(['auth/login']);  // {4}
-            return false;
-          }
-          return true;
-        })
-      )
-  
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.authService.isLoggedIn !== true) {
+      window.alert("Access not allowed!");
+      this.router.navigate(['auth/login'])
+    }
+    return true;
   }
 }
