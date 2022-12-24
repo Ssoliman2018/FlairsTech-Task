@@ -14,18 +14,22 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SideNavComponent } from './side-nav/side-nav.component';
-import { SideNavModule } from './side-nav/side-nav.module';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './header/header.component';
-
+import { SidenaveService } from './shared/sidenave.service';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 
  
 @NgModule({
   declarations: [
     AppComponent,
     Page404Component,
-    SideNavComponent,
     HeaderComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +39,11 @@ import { HeaderComponent } from './header/header.component';
    MatCardModule,
    MatIconModule,
    MatButtonModule,
-   SideNavModule,
+   MatSidenavModule,
    MatToolbarModule,
+   MatListModule,
+   MatMenuModule,
+   MatDividerModule,
     JwtModule.forRoot({
       jwtOptionsProvider:{
         provide:JWT_OPTIONS,
