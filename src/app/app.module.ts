@@ -18,7 +18,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HeaderComponent } from './header/header.component';
-import { SidenaveService } from './shared/sidenave.service';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
