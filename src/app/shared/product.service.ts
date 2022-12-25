@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, catchError, filter, map, retry, throwError } from "rxjs";
 import { Product } from "../models/product";
+import { ErrorHandlerService } from "./error-handler.service";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,7 @@ export class ProductService {
       "Content-Type": "application/json",
     }),
   };
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private errorHandler: ErrorHandlerService) {}
 
   getProducts() {
     return this.httpClient
@@ -22,7 +23,7 @@ export class ProductService {
       .pipe(
         map(e => e.products),
         retry(1), 
-        catchError(this.handleError));
+        catchError(this.errorHandler.handleError));
   }
 
   getProduct(id: number) {
@@ -30,7 +31,7 @@ export class ProductService {
       .get<Product>(this.apiURL + "products/" + id)
       .pipe(
         retry(1), 
-        catchError(this.handleError));
+        catchError(this.errorHandler.handleError));
   }
 
   getCategories() {
@@ -38,7 +39,7 @@ export class ProductService {
       .get<string[]>(this.apiURL + "products/categories")
       .pipe(
         retry(1), 
-        catchError(this.handleError));
+        catchError(this.errorHandler.handleError));
   }
 
   updateProduct(id: number, product: Product): Observable<Product> {
@@ -56,7 +57,7 @@ export class ProductService {
         JSON.stringify(product),
         this.httpOptions
       )
-      .pipe(retry(1), catchError(this.handleError));
+      .pipe(retry(1), catchError(this.errorHandler.handleError));
   }
   
   deleteProduct(id: any) {
@@ -65,24 +66,7 @@ export class ProductService {
       this.apiURL + 'products/' + id,
       this.httpOptions
     )
-    .pipe(retry(1), catchError(this.handleError));
-  }
-
-  // Error handling
-  handleError(error: any) {
-    console.log(error)
-    let errorMessage = "";
-    if (error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(() => {
-      return errorMessage;
-    });
+    .pipe(retry(1), catchError(this.errorHandler.handleError));
   }
 }
 
