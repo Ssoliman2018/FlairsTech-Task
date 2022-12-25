@@ -13,6 +13,7 @@ import { ProductModule } from '../product/product.module';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeModule } from '../home/home.module';
+import { UserModule } from '../user/user.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HomeModule } from '../home/home.module';
     MatIconModule,
     MatButtonToggleModule,
     HomeModule,
-    ProductModule
+    ProductModule,
+    UserModule
   ],
   exports: [
   ]

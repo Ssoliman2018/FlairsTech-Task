@@ -19,6 +19,11 @@ const routes: Routes = [
     loadChildren: () => import('./product/product.module').then((_) => _.ProductModule),
     canActivate:[AuthGuard]
   },
+  {
+    path: 'users',
+    loadChildren: () => import('./user/user.module').then((_) => _.UserModule),
+    canActivate:[AuthGuard]
+  },
   { path: '**', pathMatch: 'full', 
   component: Page404Component },
 

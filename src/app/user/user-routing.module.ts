@@ -23,7 +23,6 @@ const routes: Routes = [
       {
         path: "add",
         component: FormComponent
-
       } ,
       {
         path: "edit/:id",
@@ -38,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProductRoutingModule { }
+export class UserRoutingModule { }
