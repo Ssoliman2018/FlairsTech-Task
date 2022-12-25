@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/models/product';
+import { AlertsService } from 'src/app/shared/alerts.service';
 import { ProductService } from 'src/app/shared/product.service';
 
 @Component({
@@ -18,18 +19,8 @@ export class ListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private alertService: AlertsService) { }
 
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  
   ngOnInit(): void {
     this.loadProducts();
     console.log('product list >>', this.productList)
@@ -41,6 +32,22 @@ export class ListComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Product>(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort
+      })
+    }
+
+
+
+    deleteProduct(product: Product) {
+      this.alertService.warrningAlert(`Are you sure about deleting ${product.title} ?’`).then(res => {
+        if (res.isConfirmed){
+          this.productService.deleteProduct(product.id).subscribe(res => {
+            this.alertService.successAlert(`${product.title} Deleted Successfully`);
+            this.loadProducts()
+          //  console.log('delete result', res)
+          }, (e) => {
+            this.alertService.errorAlert(`error while deleting ${product.title}`)
+          })
+        }
       })
     }
 

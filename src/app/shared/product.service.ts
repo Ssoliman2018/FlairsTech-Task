@@ -7,6 +7,7 @@ import { Product } from "../models/product";
   providedIn: "root",
 })
 export class ProductService {
+
   private apiURL = "https://dummyjson.com/";
   httpOptions = {
     headers: new HttpHeaders({
@@ -40,26 +41,33 @@ export class ProductService {
         catchError(this.handleError));
   }
 
-  updateProduct(id: number, product: Product) {
-    fetch(`https://dummyjson.com/products/${id}`, {
-      method: 'PUT', /* or PATCH */
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(product)
-    })
-    .then(res => res.json())
-    .then(console.log);
+  updateProduct(id: number, product: Product): Observable<Product> {
+    // fetch(`https://dummyjson.com/products/1`, {
+    //   method: 'PUT', /* or PATCH */
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(product)
+    // })
+    // .then(res => res.json())
+    // .then(console.log);
     
-    // cannot use this method becouse cannot update peoduct on serve
-
-    // return this.httpClient
-    //   .patch<Product>(
-    //     this.apiURL + 'products/' + id,
-    //     JSON.stringify(product),
-    //     this.httpOptions
-    //   )
-    //   .pipe(retry(1), catchError(this.handleError));
+    return this.httpClient
+      .put<Product>(
+        this.apiURL + 'products/' + id,
+        JSON.stringify(product),
+        this.httpOptions
+      )
+      .pipe(retry(1), catchError(this.handleError));
   }
   
+  deleteProduct(id: any) {
+    return this.httpClient
+    .delete<Product>(
+      this.apiURL + 'products/' + id,
+      this.httpOptions
+    )
+    .pipe(retry(1), catchError(this.handleError));
+  }
+
   // Error handling
   handleError(error: any) {
     console.log(error)

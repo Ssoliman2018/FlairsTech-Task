@@ -48,6 +48,14 @@ export class FormComponent implements OnInit {
   }
 
   submitForm() {
+    this.router.navigate(['/products/'+this.product.id ])
     this.productService.updateProduct(this.product.id,this.productForm.getRawValue())
+    .subscribe(res => {
+      console.log('product updated', res);
+      this.router.navigate(['/products/'+this.product.id ])
+    },
+    (error) => {
+      console.log('error', error)
+    })
   }
 }
