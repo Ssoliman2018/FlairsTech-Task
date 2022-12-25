@@ -5,17 +5,27 @@ import { UserRoutingModule } from './user-routing.module';
 import { FormComponent } from './form/form.component';
 import { ListComponent } from './list/list.component';
 import { DetailsComponent } from './details/details.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { UserComponent } from './user.component';
 
 
 @NgModule({
   declarations: [
     FormComponent,
     ListComponent,
-    DetailsComponent
+    DetailsComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
-    UserRoutingModule
+    UserRoutingModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatButtonToggleModule
   ]
 })
 export class UserModule { }

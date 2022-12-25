@@ -33,6 +33,7 @@ export class FormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('this.product' , this.product)
     if (this.product) {
       this.productForm.patchValue(this.product);
       this.loadCategories()
