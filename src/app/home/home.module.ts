@@ -7,17 +7,20 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { ProductListComponent } from './product-list/product-list.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
   declarations: [
     ProductListComponent,
-    HomeComponent
+    HomeComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,
     MatTabsModule,
+    MatIconModule
   ],
   exports: [
     ProductListComponent

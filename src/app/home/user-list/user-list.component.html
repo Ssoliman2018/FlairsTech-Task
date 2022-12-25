@@ -1,1 +1,50 @@
-<p>user-list works!</p>
+<div class="h-100 rounded-lg border-gray-200 p-6" *ngIf="userList">
+    <div class="mt-8">
+        <div class="flow-root">
+          <ul role="list" class="-my-6 divide-y divide-gray-200">
+            <li class="flex py-6" *ngFor="let user of userList">
+              <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <img [src]="user.image" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+              </div>
+
+              <div class="ml-4 flex flex-1 flex-col">
+                <div>
+                  <div class="flex justify-between text-base font-medium text-gray-900">
+                    <h3>
+                      <a href="#">{{user.firstName}} {{user.maidenName}} {{user.lastName}}</a>
+                    </h3>
+                    <a
+                    href="mailto:{{user.email}}"
+                    class=" inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-5 py-3 text-base font-medium text-white hover:bg-indigo-700"
+                  
+                    > 
+                    <mat-icon>email</mat-icon>
+                    </a
+                  >
+                  
+                  </div>
+                  <p class="mt-1 text-sm text-gray-500">{{user.username}}</p>
+                </div>
+                <div class="flex flex-1 items-end justify-between text-sm">
+                  <p class="text-gray-500">{{user.phone}}</p>
+
+                  <div class="flex">
+                    
+                    <a
+                    href="https://www.google.com/maps/search/?api=1&query={{user.address.coordinates.lat}},{{user.address.coordinates.lng}}"
+                    class=" inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-5 py-3 text-base font-medium text-white hover:bg-green-700"
+                    target="_blank"
+                    > 
+                    <mat-icon> location_on</mat-icon>
+                    </a
+                  >
+
+                  </div>
+                  
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
