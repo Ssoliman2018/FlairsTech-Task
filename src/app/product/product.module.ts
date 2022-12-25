@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -31,9 +32,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     MatIconModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatFormFieldModule
 
     
+  ], 
+  exports: [
+    DetailsComponent,
+    FormComponent,
+    ListComponent
   ]
 })
 export class ProductModule { }

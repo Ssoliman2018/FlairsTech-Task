@@ -27,7 +27,7 @@ const routes: Routes = [
       } ,
       {
         path: "edit/:id",
-        component: FormComponent
+        component: DetailsComponent
 
       }
     ]

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { catchError, filter, map, retry, throwError } from "rxjs";
+import { Observable, catchError, filter, map, retry, throwError } from "rxjs";
 import { Product } from "../models/product";
 
 @Injectable({
@@ -32,9 +32,37 @@ export class ProductService {
         catchError(this.handleError));
   }
 
+  getCategories() {
+    return this.httpClient
+      .get<string[]>(this.apiURL + "products/categories")
+      .pipe(
+        retry(1), 
+        catchError(this.handleError));
+  }
 
+  updateProduct(id: number, product: Product) {
+    fetch(`https://dummyjson.com/products/${id}`, {
+      method: 'PUT', /* or PATCH */
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(product)
+    })
+    .then(res => res.json())
+    .then(console.log);
+    
+    // cannot use this method becouse cannot update peoduct on serve
+
+    // return this.httpClient
+    //   .patch<Product>(
+    //     this.apiURL + 'products/' + id,
+    //     JSON.stringify(product),
+    //     this.httpOptions
+    //   )
+    //   .pipe(retry(1), catchError(this.handleError));
+  }
+  
   // Error handling
   handleError(error: any) {
+    console.log(error)
     let errorMessage = "";
     if (error.error instanceof ErrorEvent) {
       // Get client-side error

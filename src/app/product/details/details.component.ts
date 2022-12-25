@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Product } from "src/app/models/product";
 import { ProductService } from "src/app/shared/product.service";
 
@@ -11,15 +11,17 @@ import { ProductService } from "src/app/shared/product.service";
 export class DetailsComponent implements OnInit {
   productID!: number;
   product!: Product;
+  editProduct: boolean = false;
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
-    private zone: NgZone
+    private router: Router
   ) {}
 
   async ngOnInit() {
     this.getParamID();
     await this.getProductDetails();
+    this.editProduct = this.router.url.includes('edit') ? true : false;
   }
 
   getParamID() {
